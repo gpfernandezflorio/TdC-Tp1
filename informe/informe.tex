@@ -1,0 +1,67 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\thispagestyle{fancy}
+
+\usepackage{gensymb}
+\usepackage{hyperref}
+\newcommand\fnurl[2]{%
+  \href{#2}{#1}\footnote{\url{#2}}%
+}
+\usepackage{amsfonts}
+
+% Bibliografía
+\usepackage{natbib}
+
+\usepackage[spanish]{babel}
+\parskip = 11pt
+\newcommand{\real}{\mathbb{R}}
+\newcommand{\nat}{\mathbb{N}}
+
+\addtolength{\topmargin}{-1cm}
+\addtolength{\textheight}{2.2cm}
+\addtolength{\textwidth}{-.5cm}
+
+\usepackage[conEntregas]{caratula}
+\materia{Teoría de las Comunicaciones}
+\titulo{Trabajo Práctico I}
+\subtitulo{\textit{Wiretapping}}
+\integrante{Fernández, Gonzalo}{836/10}{gpfernandezflorio@gmail.com}
+\integrante{Aleman, Damián Eliel}{377/10}{damianealeman@gmail.com}
+\integrante{Pizzagalli, Matías}{257/12}{matipizza@gmail.com}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Introducción Te\'orica}
+
+\input{intro.tex}
+
+\section{Desarrollo}
+
+\input{desarrollo.tex}
+
+\section{Resultados}
+
+\input{resultados.tex}
+
+\section{Discusión}
+
+\input{discusion.tex}
+
+\section{Conclusiones}
+\input{conclusiones.tex}
+
+\newpage
+\input{apendice.tex}
+
+\newpage
+\bibliographystyle{plain}
+\bibliography{bibliografia}
+
+\end{document}
