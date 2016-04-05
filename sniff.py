@@ -18,13 +18,15 @@
 from scapy.all import *
 from collections import *
 import math
+import matplotlib.pyplot as plt
+from numpy.random import normal
 
 #def monitor_callback(pkt):
 #	print pkt.show()
 
 if __name__ == '__main__':
 	l = []
-	packets = [{"t":1},{"t":1},{"t":0},{"t":1},{"t":1},{"t":0}]#sniff(prn=monitor_callback, filter="arp", store=0, timeout=10)
+	packets = [{"t":"eth"},{"t":"arp"},{"t":"arp"},{"t":"eth"},{"t":"lan"},{"t":"arp"}]#sniff(prn=monitor_callback, filter="arp", store=0, timeout=10)
 
 	cantPaquetes = 0.0
 	for p in packets:
@@ -35,9 +37,16 @@ if __name__ == '__main__':
 	print cantidades
 	print cantidades.keys()
 	prob = map(lambda x: cantidades[x]/cantPaquetes, cantidades.keys())
-	
+	print prob
 
 	entropia = 0
 	for p in prob:
-		entropia = entropia - p * math.log(p,2.0)
+		entropia = entropia - (p * math.log(p,2.0))
 	print entropia
+
+	#plt.hist(cantidades)
+	#plt.hist(l)
+	#plt.title("Cantidades")
+	#plt.xlabel("Tipo")
+	#plt.ylabel("Cantidad")
+	#plt.show()
