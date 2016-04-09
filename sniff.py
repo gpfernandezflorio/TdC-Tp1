@@ -21,17 +21,21 @@ import math
 import matplotlib.pyplot as plt
 from numpy.random import normal
 
-#def monitor_callback(pkt):
-#	print pkt.show()
+def monitor_callback(pkt):
+	print pkt.show()
+	print "\n\n\n"
+	#print pkt.type
+
 
 if __name__ == '__main__':
 	l = []
-	packets = [{"t":"eth"},{"t":"arp"},{"t":"arp"},{"t":"eth"},{"t":"lan"},{"t":"arp"}]#sniff(prn=monitor_callback, filter="arp", store=0, timeout=10)
+	packets = sniff(filter = "arp", timeout=20)
 
 	cantPaquetes = 0.0
 	for p in packets:
 		cantPaquetes = cantPaquetes +1.0
-		l.append(p["t"]) #p.type
+		monitor_callback(p)
+		l.append(p.hwsrc) #p.type
 
 	cantidades = Counter(l)
 	print cantidades
@@ -42,11 +46,6 @@ if __name__ == '__main__':
 	entropia = 0
 	for p in prob:
 		entropia = entropia - (p * math.log(p,2.0))
-	print entropia
+	print "entropia: " + str(entropia)
 
-	#plt.hist(cantidades)
-	#plt.hist(l)
-	#plt.title("Cantidades")
-	#plt.xlabel("Tipo")
-	#plt.ylabel("Cantidad")
-	#plt.show()
+	
