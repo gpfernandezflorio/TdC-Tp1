@@ -8,10 +8,11 @@ def monitor_callback(pkt):
 
 if __name__ == '__main__':
 	if len(sys.argv) > 1:
-		to = sys.argv[1];
+		to = int(sys.argv[1]);
 	else:
 		to = 10
 	print to
+
 	l = []
 	packets = sniff(filter = "arp", timeout=to)
 
@@ -19,7 +20,7 @@ if __name__ == '__main__':
 	for p in packets:
 		cantPaquetes = cantPaquetes +1.0
 		monitor_callback(p)
-		l.append(p.hwsrc)
+		l.append(p[ARP].psrc)
 
 	cantidades = Counter(l)
 	print cantidades

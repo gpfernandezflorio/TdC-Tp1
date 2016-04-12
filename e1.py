@@ -6,8 +6,9 @@ def monitor_callback(pkt):
 
 if __name__ == '__main__':
 	if len(sys.argv) > 1:
-		to = sys.argv[1];
+		to = int(sys.argv[1]);
 	else:
 		to = 10
 	print to
+
 	sniff(prn=monitor_callback, timeout=to)
