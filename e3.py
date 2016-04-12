@@ -1,3 +1,4 @@
+import sys
 from scapy.all import *
 from collections import *
 import math
@@ -6,8 +7,13 @@ def monitor_callback(pkt):
 	print pkt.show()
 
 if __name__ == '__main__':
+	if len(sys.argv) > 1:
+		to = sys.argv[1];
+	else:
+		to = 10
+	print to
 	l = []
-	packets = sniff(filter = "arp", timeout=2)
+	packets = sniff(filter = "arp", timeout=to)
 
 	cantPaquetes = 0.0
 	for p in packets:
