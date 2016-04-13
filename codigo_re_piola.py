@@ -57,7 +57,7 @@ if __name__ == '__main__':
     entropiaProtocolos = entropiaProtocolos - (p * math.log(p,2.0))
   print "entropia de los protocolos: " + str(entropiaProtocolos)
 
-  probIpsArp = map(lambda x: protocolosCounter[x]/cantProtocolos, protocolosCounter.keys())
+  probIpsArp = map(lambda x: ipsArpCounter[x]/cantIpsArp, ipsArpCounter.keys())
 
   entropiaIpsArp = 0
   for p in probIpsArp:
