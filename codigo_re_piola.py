@@ -12,7 +12,7 @@ def imprime_salida(counter, file_name_prefix, file_name_suffix):
   map(lambda x: imprimir(f,counter,x), counter)
 
 def imprimir(file, counter, key):
-  file.write(str(key) + "\t" + str(counter[key]))
+  file.write(str(key) + "\t" + str(counter[key]) + "\n")
 
 if __name__ == '__main__':
   if len(sys.argv) == 3:
