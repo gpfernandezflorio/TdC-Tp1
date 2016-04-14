@@ -79,6 +79,7 @@ def monitor_callback(pkt):
   except:
     # Asumimos que el type 0 no se usa y lo usamos para los casos que
     # nos vienen sin type, como por ejemplo STP
+    pkt.show()
     current_type = 0x0000
   cantProtocolos = cantProtocolos + 1.0
 
