@@ -5,21 +5,20 @@ import math
 import matplotlib.pyplot as plt
 
 protocolos = []
-ips_arp = []
+ips_src_arp = []
+ips_dst_arp = []
 cantProtocolos = 0.0
-cantIpsArp = 0.0
-
-def imprime_entrada(x, cantidades):
-  print (x + ' ' + str(cantidades[x]))
+cantIpsSrcArp = 0.0
+cantIpsDstArp = 0.0
 
 def imprime_salida(counter, file_name_prefix, file_name_suffix):
-  f = open('mediciones/' + file_name_prefix + file_name_suffix + '.txt', 'w')
+  f = open('../mediciones/' + file_name_prefix + file_name_suffix + '.txt', 'w')
   map(lambda x: imprimir(f,counter,x), counter)
 
 def imprimir(file, counter, key):
   file.write(str(key) + "\t" + str(counter[key]) + "\n")
 
-def mapeo_loco(type_int):
+def map_number_to_name(type_int):
   try:
     ret = {
       0x0800: 'IPv4',
@@ -71,8 +70,10 @@ def mapeo_loco(type_int):
 def monitor_callback(pkt):
   global cantProtocolos
   global protocolos
-  global cantIpsArp
-  global ips_arp
+  global cantIpsSrcArp
+  global ips_src_arp
+  global cantIpsDstArp
+  global ips_dst_arp
   try:
     current_type = pkt.type
   except:
@@ -81,10 +82,12 @@ def monitor_callback(pkt):
     current_type = 0x0000
   cantProtocolos = cantProtocolos + 1.0
 
-  protocolos.append(current_type)
+  protocolos.append(map_number_to_name(current_type))
   if pkt.haslayer(ARP): # Sera lo mismo que 'if ARP in pkt:'?
-    ips_arp.append(pkt[ARP].psrc)
-    cantIpsArp += 1.0
+    ips_src_arp.append(pkt[ARP].psrc)
+    cantIpsSrcArp += 1.0
+    ips_dst_arp.append(pkt[ARP].pdst)
+    cantIpsDstArp += 1.0
 
 if __name__ == '__main__':
   if len(sys.argv) == 3:
@@ -100,24 +103,34 @@ if __name__ == '__main__':
   sniff(prn=monitor_callback, timeout=to)
 
   protocolosCounter = Counter(protocolos)
-  ipsArpCounter = Counter(ips_arp)
-  print ipsArpCounter
+  ipsSrcArpCounter = Counter(ips_src_arp)
+  ipsDstArpCounter = Counter(ips_dst_arp)
   print protocolosCounter
+  print ipsSrcArpCounter
+  print ipsDstArpCounter
 
   probProtoclos = map(lambda x: protocolosCounter[x]/cantProtocolos, protocolosCounter.keys())
 
-  entropiaProtocolos = 0
+  entropiaProtocolos = 0.0
   for p in probProtoclos:
     entropiaProtocolos = entropiaProtocolos - (p * math.log(p,2.0))
   print "entropia de los protocolos: " + str(entropiaProtocolos)
 
-  probIpsArp = map(lambda x: ipsArpCounter[x]/cantIpsArp, ipsArpCounter.keys())
+  probIpsSrcArp = map(lambda x: ipsSrcArpCounter[x]/cantIpsSrcArp, ipsSrcArpCounter.keys())
 
-  entropiaIpsArp = 0
-  for p in probIpsArp:
-    entropiaIpsArp = entropiaIpsArp - (p * math.log(p,2.0))
-  print "entropia de las IPs de ARP: " + str(entropiaIpsArp)
+  entropiaIpsSrcArp = 0.0
+  for p in probIpsSrcArp:
+    entropiaIpsSrcArp = entropiaIpsSrcArp - (p * math.log(p,2.0))
+  print "entropia de las IPs origen de ARP: " + str(entropiaIpsSrcArp)
+
+  probIpsDstArp = map(lambda x: ipsDstArpCounter[x]/cantIpsDstArp, ipsDstArpCounter.keys())
+
+  entropiaIpsDstArp = 0.0
+  for p in probIpsDstArp:
+    entropiaIpsDstArp = entropiaIpsDstArp - (p * math.log(p,2.0))
+  print "entropia de las IPs destino de ARP: " + str(entropiaIpsDstArp)
 
   imprime_salida(protocolosCounter, file_name_prefix, 'Protocolos')
-  imprime_salida(ipsArpCounter, file_name_prefix, 'IpsArp')
+  imprime_salida(ipsSrcArpCounter, file_name_prefix, 'IpsSrcArp')
+  imprime_salida(ipsDstArpCounter, file_name_prefix, 'IpsDstArp')
 
