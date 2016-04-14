@@ -1,0 +1,4 @@
+ARP	39
+Other(0)	2
+IPv4	43604
+IPv6	16

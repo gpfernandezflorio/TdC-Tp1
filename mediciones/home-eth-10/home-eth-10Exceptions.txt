@@ -1,0 +1,14 @@
+2 paquetes idénticos de la pinta:
+
+###[ 802.3 ]###
+  dst       = ff:ff:ff:ff:ff:ff
+  src       = a8:e3:ee:0c:63:d3
+  len       = 6
+###[ LLC ]###
+     dsap      = 0x0
+     ssap      = 0x0
+     ctrl      = 245
+###[ Raw ]###
+        load      = '\x81\x80\x00'
+###[ Padding ]###
+           load      = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
