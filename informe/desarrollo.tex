@@ -1,17 +1,119 @@
+Para la implementación de las consignas pedidas se utilizó el lenguaje de programación \texttt{python}, tal como
+fue recomendado por la cátedra. Para acceder a la placa de red se utilizó el paquete \texttt{scapy} que provee
+funciones específicas para ello.
+
 \subsection{Primera consigna: capturando tráfico}
 
 \subsubsection{Ejercicio 1}
-El código que implementa la herramienta que escucha pasivamente los paquetes Ethernet de la red es \texttt{e1.py}.
+El código que implementa la herramienta que escucha pasivamente los paquetes Ethernet de la red es \texttt{e1.py}
+y se encuentra en el directorio \texttt{src}. Toma como parámetro opcional un entero que se traduce en la cantidad
+de segundos que va a permanecer activo. El valor por defecto es $10$ segundos. La función \texttt{main} del script
+utiliza la función \texttt{sniff} del paquete \texttt{scapy} pasándole como parámetro de \texttt{timeout} el
+parámetro ingresado (o $10$ si no se ingresó ninguno) y como parámetro de \texttt{prn} la función
+\texttt{monitor\_callback} que toma un paquete de red y lo imprime mediante un llamado a la función \texttt{show}.
+La forma de ejecutarlo es
+
+\[
+\texttt{\$ sudo python e1.py [TIMEOUT]}
+\]
+
+Notar que para ejecutarlo se necesitan permisos de administrador ya que la función \texttt{sniff} de \texttt{scapy}
+necesita permisos para acceder a la placa de red.
 
 \subsubsection{Ejercicio 2}
-El código que implementa la herramienta para calcular la entropía de la fuente S en la red local es \texttt{e2.py}.
+El código que implementa la herramienta para calcular la entropía de la fuente S en la red local es \texttt{e2.py}
+y se encuentra en el directorio \texttt{src}. Este programa es una modificación del anterior, \texttt{e1.py}.
+La principal modificación es que los paquetes obtenidos por el llamado a \texttt{sniff} ahora se almacenan para
+operar sobre ellos luego. Se anula el parámetro \texttt{prn} pero se conserva el \texttt{timeout} (el cuál sigue
+siendo un parámetro opcional del programa). Una vez recibidos todos los paquetes, se obtiene el tipo de cada uno
+mediante el atributo \texttt{type}. En este punto encontramos que no todos los paquetes capturados poseen dicho
+atributo, así que atrapamos una excepción al leer el tipo. En caso de saltar la excepción, consideramos que el
+paquete tiene tipo $0x0000$ y lo imprimimos llamando a \texttt{monitor\_callback}. A través de la función de
+mapeo \texttt{map\_number\_to\_name} convertimos a una cadena el valor del tipo del paquete. Esta función
+utiliza un diccionario basado en la siguiente tabla\footnote{https://en.wikipedia.org/wiki/EtherType}:
+
+\begin{tabular}{|r|l|c|r|l|c|r|l|}
+\hline
+0x0800 & IPv4 & & 0x8847 & MPLS Unicast & & 0x88CD & SERCOS III \\
+\hline
+0x0806 & ARP & & 0x8848 & MPLS Multicast & & 0x88E1 & HomePlug AV \\
+\hline
+0x0842 & WakeOn LAN & & 0x8863 & PPPoE Discovery & & 0x88E3 & MRP \\
+\hline
+0x22F3 & IETF TRILL & & 0x8864 & PPPoE Session & & 0x88E5 & MAC security \\
+\hline
+0x6003 & DECnet & & 0x8870 & Jumbo & & 0x88E7 & PBB \\
+\hline
+0x8035 & RARP & & 0x887B & HomePlug 1.0 & & 0x88F7 & PTP \\
+\hline
+0x809B & Ethertalk & & 0x888E & 802.1X & & 0x8902 & CFM \\
+\hline
+0x80F3 & AARP & & 0x8892 & PROFINET & & 0x8906 & FCoE \\
+\hline
+0x8100 & 802.1Q & & 0x889A & SCSI & & 0x8914 & FCoE Init \\
+\hline
+0x8137 & IPX & & 0x88A2 & ATA & & 0x8915 & RoCE \\
+\hline
+0x8204 & QNX Qnet & & 0x88A4 & EtherCAT & & 0x891D & TTE  \\
+\hline
+0x86DD & IPv6 & & 0x88A8 & 802.1ad & & 0x892F & HSR \\
+\hline
+0x8808 & EFC & & 0x88AB & Powerlink & & 0x9000 & ECTP \\
+\hline
+0x8819 & CobraNet & & 0x88CC & LLDP & & & \\
+\hline
+\end{tabular}
+
+Luego se utiliza la función \texttt{Counter} de \texttt{python} para generar el diccionario \texttt{cantidades}
+cuyas claves son los tipos de protocolos y sus respectivos valores son la cantidad de paquetes de tal tipo.
+A partir de este diccionario (el cual se imprime para verificación) se calcula la probabilidad de cada tipo.
+Finalmente se calcula la entropía de la fuente utilizando la probabilidad de cada tipo y se la imprime. La
+forma de ejecutarlo es:
+
+\[
+\texttt{\$ sudo python e2.py [TIMEOUT]}
+\]
 
 \subsubsection{Ejercicio 3}
 El código que implementa la herramientade distinción de nodos (hosts) de la red, basada únicamente en paquetes que
-utilizan el protocolo ARP es \texttt{e3.py}. El criterio para la diferenciación de los nodos que se encuentran en
-la red es ... %TODO
+utilizan el protocolo ARP es \texttt{e3.py} y se encuentra en el directorio \texttt{src}. El criterio para la
+diferenciación de los nodos que se encuentran en la red es ... %TODO
+
+Una vez más, implementar este programa consistió en modificar el anterior, ya que la única diferencia entre ambas
+consignas es el atributo de cada paquete utilizado como símbolo de la fuente. Al llamado a la función \texttt{sniff}
+se le agregó el parámetro \texttt{filter=``arp''} para que sólo se examinen los paquetes \texttt{ARP}. En lugar de
+obtener el tipo de cada paquete, lo que se obtiene es %TODO: ¿la ip fuente?¿la ip destino?
+El resto del código es idéntico al de \texttt{e2.py}. La forma de ejecutarlo es:
+
+\[
+\texttt{\$ sudo python e3.py [TIMEOUT]}
+\]
 
 \subsection{Segunda consigna: gráficos y análisis}
+
+Para la parte de experimentación se implementó otro script de python que realiza una medición y sobre
+esa medición calcula la entropía para ambas fuentes. De esta forma se pueden comparar los dos análisis
+realizados sobre una misma muestra, cosa que no habríamos podido si ejecutábamos primero un script y luego
+el otro. El programa correspondiente es \texttt{sniffer.py} y se encuentra en el directorio \texttt{src}.
+
+La mayor parte del código es idéntica a la de \texttt{e2.py} y \texttt{e3.py} combinados. Sin embargo,
+también se aplicaron algunas optimizaciones. Por ejemplo, ya no se almacenan los paquetes capturados por
+\texttt{sniff}, sino que se procesan a medida que se capturan. Para ello, se modificó la función
+\texttt{monitor\_callback} de forma que obtenga el tipo (tal como se hizo en \texttt{e2.py}) y, en caso
+de ser un paquete \texttt{ARP}, %TODO: ¿la ip fuente?¿la ip destino?
+(tal como se hizo en \texttt{e3.py}) de cada paquete a medida que son capturados. Es por esto que se volvió
+a la versión original de \texttt{sniff} pasándole como parámetro \texttt{prn=monitor\_callback}. Tras finalizar
+la escucha, se generan los diccionarios, se imprimen y se calculan las entropías. Además, se escribe a un archivo
+los valores de cada diccionario para poder ser graficados como histogramas con \texttt{gnuplot}. La forma de
+ejecutarlo es:
+
+\[
+\texttt{\$ sudo python sniffer.py FILE\_PREFIX [TIMEOUT]}
+\]
+
+El parámetro de \texttt{timeout} sigue siendo opcional (10 segundos por defecto). Los archivos de salida
+se componen del prefijo \texttt{FILE\_PREFIX} pasado como parámetro obligatorio y las cadenas \texttt{Protocolos},
+\texttt{IpsSrcArp} o \texttt{IpsDstArp}, según corresponda. Estos archivos se guardan en la carpeta \texttt{mediciones}.
 
 \subsubsection{Experimento 1: }
 

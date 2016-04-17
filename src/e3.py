@@ -19,7 +19,6 @@ if __name__ == '__main__':
 	cantPaquetes = 0.0
 	for p in packets:
 		cantPaquetes = cantPaquetes +1.0
-		monitor_callback(p)
 		l.append(p[ARP].psrc)
 
 	cantidades = Counter(l)
