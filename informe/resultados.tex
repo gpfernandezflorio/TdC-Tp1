@@ -4,9 +4,11 @@ sobre la red en cuestión y otro arhivo \texttt{exceptions.txt} que describe los
 capturados. Los nombres de los experimentos denotan el tipo de red, el tipo de conexión y la
 duración del experimento en minutos.
 
-\subsection{Experimento 1: Red hogareña, cableada, 10 mintos (\texttt{home-eth-10})}
+\subsection{Experimento 1: Red hogareña, cableada, 10 mintos}
 
-\includegraphics[width=10cm]{../mediciones/home-eth-10/home-eth-10Protocolos.png}
+\begin{center}
+\includegraphics[width=8cm]{../mediciones/home-eth-10/home-eth-10Protocolos.png}
+\end{center}
 
 Se ve que ARP se usa muy poco en relación con IP. Imagino que es porque hay pocos nodos en la red y se aprende rápido la configuración de la red.
 Una de nuestras hipótesis es que en general vamos a encontrar más paquetes IPv4 que IPv6 ya que todavía no se migró a la versión 6 del protocolo IP.
@@ -32,9 +34,11 @@ está ejecutando el experimento está conectada al router principal (con direcci
 por otros hosts no deberían llegar hasta este equipo. En cuanto a los destinatarios de los paquetes, vemos que el router no representa un símbolo distinguido
 como sí lo hacía en la fuente de basada en emisores.
 
-\subsection{Experimento 2: Red hogareña, inalámbrica, 10 mintos (\texttt{home-wfi-10})}
+\subsection{Experimento 2: Red hogareña, inalámbrica, 10 mintos}
 
-\includegraphics[width=10cm]{../mediciones/home-wfi-10/home-wfi-10Protocolos.png}
+\begin{center}
+\includegraphics[width=8cm]{../mediciones/home-wfi-10/home-wfi-10Protocolos.png}
+\end{center}
 
 Otra vez se ve la superioridad de la versión 4 del protocolo IP, no sólo sobre la versión 6 del mismo protocolo, sino sobre el resto de los protocolos.
 Sin embargo, la proporción es mucho menor. Al comparar este gráfico con el del experimento anterior, notamos dos cambios significativos. Por un lado la cantidad
@@ -77,22 +81,72 @@ de las direcciones mantiene una baja frecuencia de envío y recepción de paquet
 
 \subsection{Experimento 3: Red pública, inalámbrica, 10 minutos}
 
-\includegraphics[width=10cm]{../mediciones/altop-wifi-10/altop10Protocolos.png}
+\begin{center}
+\includegraphics[width=8cm]{../mediciones/altop-wifi-10/altop10Protocolos.png}
+\end{center}
 
-\includegraphics[width=10cm]{../mediciones/altop-wifi-10/altop10IpsSrcArp.png}
+Seguimos viendo en esta red que el protocolo IPv4 es el más utilizado para el envío de paquetes. Es particularmente notoria la escasa
+cantidad de paquetes de tipo IPv6, mucho menor que en la red hogareña del experimento anterior. Sí se incrementa la cantidad de paquetes
+de tipo ARP en la misma cantidad de tiempo, respecto a la red hogareña. Esto puede deberse a que la red pública es considerablemente mayor.
 
+\begin{center}
+\includegraphics[width=8cm]{../mediciones/altop-wifi-10/altop10IpsSrcArp.png}
+\end{center}
+
+En este caso nos encontramos con un comportamiento inesperado. Más del 97\% de los paquetes capturados fueron emitidos por una misma dirección
+IP, que podemos suponer que es el router. Por otro lado, sólo pudieron identificarse 3 direcciones IP distintas en la red, a diferencia de lo
+que había sucedido en la red hogareña, en la que se pudieron identificar varios nodos más. Claramente, la IP \textbf{172.16.0.1} es un símbolo
+distinguido de la fuente.
+
+\begin{center}
 \includegraphics[width=16cm]{../mediciones/altop-wifi-10/altop10IpsDstArp.png}
+\end{center}
+
+Este gráfico muestra algo más parecido a lo esperado en cuanto a la cantidad de nodos identificados. Lo que es incierto es la razón por la cual
+los paquetes son dirigidos a tantos nodos distintos pero emitidos por un grupo reducido.
 
 \subsection{Experimento 4: Red pública, inalámbrica, 60 minutos}
 
-\includegraphics[width=10cm]{../mediciones/altop-wifi-60/altop60Protocolos.png}
+\begin{center}
+\includegraphics[width=8cm]{../mediciones/altop-wifi-60/altop60Protocolos.png}
+\end{center}
 
-\includegraphics[width=10cm]{../mediciones/altop-wifi-60/altop60IpsSrcArp.png}
+\begin{center}
+\includegraphics[width=8cm]{../mediciones/altop-wifi-60/altop60IpsSrcArp.png}
+\end{center}
 
-\includegraphics[width=14cm]{../mediciones/altop-wifi-60/altop60IpsDstArp.png}
+\begin{center}
+\includegraphics[width=16cm]{../mediciones/altop-wifi-60/altop60IpsDstArp.png}
+\end{center}
 
-\includegraphics[width=10cm,trim={0 0 35.95cm 0},clip]{../mediciones/altop-wifi-60/altop60IpsDstArp.png}
+\subsection{Experimento 5: Red laboral, inalámbrica, 60 minutos}
 
-\includegraphics[width=10cm,trim={17cm 0 20.7cm 0},clip]{../mediciones/altop-wifi-60/altop60IpsDstArp.png}
+\begin{figure}[!h]
+\centering
+\begin{minipage}{8cm}
+  \centering
+  \includegraphics[width=8cm]{../mediciones/job1/type.png}
+\end{minipage}%
+\begin{minipage}{8cm}
+  \centering
+  \includegraphics[width=8cm]{../mediciones/job2/type.png}
+\end{minipage}
+\end{figure}
 
-\includegraphics[width=10cm,trim={32.26cm 0 0 0},clip]{../mediciones/altop-wifi-60/altop60IpsDstArp.png}
+\begin{center}
+\includegraphics[width=16cm]{../mediciones/job1/src.png}
+\end{center}
+
+\begin{center}
+\includegraphics[width=16cm]{../mediciones/job2/src.png}
+\end{center}
+
+\begin{center}
+\includegraphics[width=16cm]{../mediciones/job1/dst.png}
+\end{center}
+
+\begin{center}
+\includegraphics[width=16cm]{../mediciones/job2/dst.png}
+\end{center}
+
+\subsection{Entropía}
