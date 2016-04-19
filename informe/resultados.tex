@@ -4,23 +4,78 @@ sobre la red en cuestión y otro arhivo \texttt{exceptions.txt} que describe los
 capturados. Los nombres de los experimentos denotan el tipo de red, el tipo de conexión y la
 duración del experimento en minutos.
 
-\subsubsection{Experimento 1: Red hogareña, cableada, 10 mintos (\texttt{home-eth-10})}
+\subsection{Experimento 1: Red hogareña, cableada, 10 mintos (\texttt{home-eth-10})}
 
 \includegraphics[width=10cm]{../mediciones/home-eth-10/home-eth-10Protocolos.png}
 
-\includegraphics[width=10cm]{../mediciones/home-eth-10/home-eth-10IpsSrcArp.png}
+Se ve que ARP se usa muy poco en relación con IP. Imagino que es porque hay pocos nodos en la red y se aprende rápido la configuración de la red.
+Una de nuestras hipótesis es que en general vamos a encontrar más paquetes IPv4 que IPv6 ya que todavía no se migró a la versión 6 del protocolo IP.
+Dicha hipótesis se ve confirmada en este gráfico ya que relación entre ambas versiones es aproximadamente 2725 a 1 a favor de la versión 4.
+Es claro que el tipo $0x0800$ correspondiente al protocolo IPv4, es un símbolo distinguido de la fuente \textbf{S} ya que es el que más aparece,
+es decir que es el que tiene mayor probabilidad. El resto de los símbolos tienen frecuencias similares mucho menores a $0x0800$.
 
-\includegraphics[width=10cm]{../mediciones/home-eth-10/home-eth-10IpsDstArp.png}
+\begin{figure}[!h]
+\centering
+\begin{minipage}{8cm}
+  \centering
+  \includegraphics[width=8cm]{../mediciones/home-eth-10/home-eth-10IpsSrcArp.png}
+\end{minipage}%
+\begin{minipage}{8cm}
+  \centering
+  \includegraphics[width=8cm]{../mediciones/home-eth-10/home-eth-10IpsDstArp.png}
+\end{minipage}
+\end{figure}
 
-\subsubsection{Experimento 2: Red hogareña, inalámbrica, 10 mintos (\texttt{home-wfi-10})}
+Vemos que para este experimento no tiene sentido considerar la IP del emisor de un paquete para identificar a los nodos de la red ya que sólo tres direcciones
+(la de la computadora que está ejecutando el experimento y las de los dos routers) son visibles. Esto tiene sentido al considerar que la computadora que
+está ejecutando el experimento está conectada al router principal (con dirección \textbf{192.168.1.1}) a través de un cable ethernet, por lo que los paquetes emitidos
+por otros hosts no deberían llegar hasta este equipo. En cuanto a los destinatarios de los paquetes, vemos que el router no representa un símbolo distinguido
+como sí lo hacía en la fuente de basada en emisores.
+
+\subsection{Experimento 2: Red hogareña, inalámbrica, 10 mintos (\texttt{home-wfi-10})}
 
 \includegraphics[width=10cm]{../mediciones/home-wfi-10/home-wfi-10Protocolos.png}
 
-\includegraphics[width=12cm]{../mediciones/home-wfi-10/home-wfi-10IpsSrcArp.png}
+Otra vez se ve la superioridad de la versión 4 del protocolo IP, no sólo sobre la versión 6 del mismo protocolo, sino sobre el resto de los protocolos.
+Sin embargo, la proporción es mucho menor. Al comparar este gráfico con el del experimento anterior, notamos dos cambios significativos. Por un lado la cantidad
+de paquetes de tipo IPv4 es casi 10 veces menor. Por otro lado la cantidad de paquetes de tipo ARP y de tipo IPv6 se multiplicaron varias veces. Si consideramos
+que la duración fue de 10 minutos para ambos experimentos, llama la atención esta diferencia. Como se puede ver en la siguiente tabla, los paquetes Ipv4 pasaron
+de ocupar el 99.9\% de los paquetes capturados a ocupar el 88.7\%. Los de tipo IPv6 pasaron del 0.04\% al 1.54\% y los de tipo ARP pasaron del 0.09\% al 9.63\%.
 
-\includegraphics[width=12cm]{../mediciones/home-wfi-10/home-wfi-10IpsDstArp.png}
+\begin{center}
+\begin{tabular}{|c||c|c|}
+\hline
+Protocolo & Red cableada & Red Wifi \\
+\hline
+ARP & 0.09\% & 9.63\% \\
+\hline
+IPv4 & 99.87\% & 88.68\% \\
+\hline
+IPv6 & 0.04\% & 1.54\% \\
+\hline
+Otros & 0.01\% & 0.16\% \\
+\hline
+\end{tabular}
+\end{center}
 
-\subsubsection{Experimento 3: Red pública, inalámbrica, 10 minutos}
+\begin{figure}[!h]
+\centering
+\begin{minipage}{8cm}
+  \centering
+  \includegraphics[width=8cm]{../mediciones/home-wfi-10/home-wfi-10IpsSrcArp.png}
+\end{minipage}%
+\begin{minipage}{8cm}
+  \centering
+  \includegraphics[width=8cm]{../mediciones/home-wfi-10/home-wfi-10IpsDstArp.png}
+\end{minipage}
+\end{figure}
+
+En cada uno de estos gráficos encontramos un nodo distinguido. Del lado de los emisores, la dirección IP distinguida corresponde al
+router principal de la red, mientras que el nodo al que más paquetes van dirigidos es el host que ejecuta el experimento. El resto
+de las direcciones mantiene una baja frecuencia de envío y recepción de paquetes. Otro punto a notar es la aparición de la dirección
+\textbf{0.0.0.0} como emisor de 3 paquetes.
+
+\subsection{Experimento 3: Red pública, inalámbrica, 10 minutos}
 
 \includegraphics[width=10cm]{../mediciones/altop-wifi-10/altop10Protocolos.png}
 
@@ -28,14 +83,16 @@ duración del experimento en minutos.
 
 \includegraphics[width=16cm]{../mediciones/altop-wifi-10/altop10IpsDstArp.png}
 
-\subsubsection{Experimento 4: Red pública, inalámbrica, 60 minutos}
+\subsection{Experimento 4: Red pública, inalámbrica, 60 minutos}
 
 \includegraphics[width=10cm]{../mediciones/altop-wifi-60/altop60Protocolos.png}
 
 \includegraphics[width=10cm]{../mediciones/altop-wifi-60/altop60IpsSrcArp.png}
 
-\includegraphics[width=14cm,trim={0 0 35.95cm 0},clip]{../mediciones/altop-wifi-60/altop60IpsDstArp.png}
+\includegraphics[width=14cm]{../mediciones/altop-wifi-60/altop60IpsDstArp.png}
 
-\includegraphics[width=14cm,trim={17cm 0 20.7cm 0},clip]{../mediciones/altop-wifi-60/altop60IpsDstArp.png}
+\includegraphics[width=10cm,trim={0 0 35.95cm 0},clip]{../mediciones/altop-wifi-60/altop60IpsDstArp.png}
 
-\includegraphics[width=16cm,trim={32.26cm 0 0 0},clip]{../mediciones/altop-wifi-60/altop60IpsDstArp.png}
+\includegraphics[width=10cm,trim={17cm 0 20.7cm 0},clip]{../mediciones/altop-wifi-60/altop60IpsDstArp.png}
+
+\includegraphics[width=10cm,trim={32.26cm 0 0 0},clip]{../mediciones/altop-wifi-60/altop60IpsDstArp.png}
