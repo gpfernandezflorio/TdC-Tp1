@@ -20,6 +20,15 @@
 \addtolength{\textheight}{2.2cm}
 \addtolength{\textwidth}{-.5cm}
 
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+            {-2.5ex\@plus -1ex \@minus -.25ex}%
+            {1.25ex \@plus .25ex}%
+            {\normalfont\normalsize\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{4} % how many sectioning levels to assign numbers to
+\setcounter{tocdepth}{4}    % how many sectioning levels to show in ToC
+
 \usepackage[conEntregas]{caratula}
 \materia{Teoría de las Comunicaciones}
 \titulo{Trabajo Práctico I}
@@ -35,6 +44,7 @@
 \tableofcontents
 
 \newpage
+
 
 \section{Introducción Te\'orica}
 

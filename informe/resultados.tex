@@ -4,17 +4,19 @@ sobre la red en cuestión y otro arhivo \texttt{exceptions.txt} que describe los
 capturados. Los nombres de los experimentos denotan el tipo de red, el tipo de conexión y la
 duración del experimento en minutos.
 
-\subsection{Experimento 1: Red hogareña, cableada, 10 mintos}
+% \subsection{Experimento 1: Red hogareña, cableada, 10 mintos}
+\subsection{Experimento 1: Red hogareña}
+\subsubsection{Medición cableada}
 
 \begin{center}
 \includegraphics[width=8cm]{../mediciones/home-eth-10/home-eth-10Protocolos.png}
 \end{center}
 
-Se ve que ARP se usa muy poco en relación con IP. Imagino que es porque hay pocos nodos en la red y se aprende rápido la configuración de la red.
-Una de nuestras hipótesis es que en general vamos a encontrar más paquetes IPv4 que IPv6 ya que todavía no se migró a la versión 6 del protocolo IP.
-Dicha hipótesis se ve confirmada en este gráfico ya que relación entre ambas versiones es aproximadamente 2725 a 1 a favor de la versión 4.
+En este gráfico podemos observar que ARP se usa muy poco en relación con IP. Imaginamos que es porque hay pocos nodos en la red y se aprende rápido la configuración de la red.
+En cuanto a la diferencia entre los distintas versiones de IP, nuestra hipótesis es que en general vamos a encontrar más paquetes IPv4 que IPv6 ya que todavía no se migró a la versión 6 del protocolo IP.
+Dicha hipótesis se ve confirmada en este gráfico ya que la relación entre ambas versiones del protocolo es aproximadamente 2725 a 1 a favor de la versión 4.
 Es claro que el tipo $0x0800$ correspondiente al protocolo IPv4, es un símbolo distinguido de la fuente \textbf{S} ya que es el que más aparece,
-es decir que es el que tiene mayor probabilidad. El resto de los símbolos tienen frecuencias similares mucho menores a $0x0800$.
+es decir que es el que tiene mayor probabilidad. El resto de los símbolos tienen frecuencias similares y mucho menores a la de $0x0800$.
 
 \begin{figure}[!h]
 \centering
@@ -34,7 +36,7 @@ está ejecutando el experimento está conectada al router principal (con direcci
 por otros hosts no deberían llegar hasta este equipo. En cuanto a los destinatarios de los paquetes, vemos que el router no representa un símbolo distinguido
 como sí lo hacía en la fuente de basada en emisores.
 
-\subsection{Experimento 1: Red hogareña, inalámbrica, 10 mintos}
+\subsubsection{Medición inalámbrica}
 
 \begin{center}
 \includegraphics[width=8cm]{../mediciones/home-wfi-10/home-wfi-10Protocolos.png}
@@ -79,7 +81,8 @@ router principal de la red, mientras que el nodo al que más paquetes van dirigi
 de las direcciones mantiene una baja frecuencia de envío y recepción de paquetes. Otro punto a notar es la aparición de la dirección
 \textbf{0.0.0.0} como emisor de 3 paquetes.
 
-\subsection{Experimento 2: Red pública, inalámbrica, 10 minutos}
+\subsection{Experimento 2: Red pública}
+\subsubsection{Medición 10 minutos}
 
 \begin{center}
 \includegraphics[width=8cm]{../mediciones/altop-wifi-10/altop10Protocolos.png}
@@ -105,7 +108,7 @@ distinguido de la fuente.
 Este gráfico muestra algo más parecido a lo esperado en cuanto a la cantidad de nodos identificados. Lo que es incierto es la razón por la cual
 los paquetes son dirigidos a tantos nodos distintos pero emitidos por un grupo reducido.
 
-\subsection{Experimento 2: Red pública, inalámbrica, 60 minutos}
+\subsubsection{Medición 60 minutos}
 
 \begin{center}
 \includegraphics[width=8cm]{../mediciones/altop-wifi-60/altop60Protocolos.png}
@@ -119,7 +122,10 @@ los paquetes son dirigidos a tantos nodos distintos pero emitidos por un grupo r
 \includegraphics[width=16cm]{../mediciones/altop-wifi-60/altop60IpsDstArp.png}
 \end{center}
 
-\subsection{Experimento 3: Red laboral, inalámbrica, 60 minutos}
+Para poder observar este gráfico mejor, lo agregamos en el Apéndice, en la sección \ref{exp2_60_big}.
+
+\subsection{Experimento 3: Red laboral}
+\subsubsection{Primera medición 60 minutos}
 
 \begin{figure}[!h]
 \centering

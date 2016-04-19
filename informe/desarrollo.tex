@@ -75,15 +75,16 @@ forma de ejecutarlo es:
 \]
 
 \subsubsection{Ejercicio 3}
-El código que implementa la herramientade distinción de nodos (hosts) de la red, basada únicamente en paquetes que
-utilizan el protocolo ARP es \texttt{e3.py} y se encuentra en el directorio \texttt{src}. El criterio para la
-diferenciación de los nodos que se encuentran en la red es ... %TODO
+Para poder distinguir los nodos de un red, se nos ocurrio proponer como posibles fuentes de información la IP destino y la IP origen de los paquetes ARP. Nos parece interesante medir ambas fuentes de información propuestas para luego poder analizarlas y llegar a distinguir cuales son los nodos que mas envian y mas reciben paquetes y de esta forma comprender la topologia de la red en cuestion.
 
-Una vez más, implementar este programa consistió en modificar el anterior, ya que la única diferencia entre ambas
+Implementar este programa consistió en modificar el anterior, ya que la única diferencia entre ambas
 consignas es el atributo de cada paquete utilizado como símbolo de la fuente. Al llamado a la función \texttt{sniff}
-se le agregó el parámetro \texttt{filter=``arp''} para que sólo se examinen los paquetes \texttt{ARP}. En lugar de
-obtener el tipo de cada paquete, lo que se obtiene es %TODO: ¿la ip fuente?¿la ip destino?
+se le agregó el parámetro \texttt{filter=``arp''} para que sólo se examinen los paquetes \texttt{ARP}. Luego, en lugar de
+obtener el tipo de cada paquete, que ya sabemos que todos son ARP, lo que se obtiene es la IP origen y la IP destino de cada paquete.
 El resto del código es idéntico al de \texttt{e2.py}. La forma de ejecutarlo es:
+
+El código que implementa la herramienta de distinción de nodos (hosts) de la red, basada únicamente en paquetes que
+utilizan el protocolo ARP es \texttt{e3.py} y se encuentra en el directorio \texttt{src}.
 
 \[
 \texttt{\$ sudo python e3.py [TIMEOUT]}
@@ -92,7 +93,7 @@ El resto del código es idéntico al de \texttt{e2.py}. La forma de ejecutarlo e
 \subsection{Experimentación (Segunda consigna: gráficos y análisis)}
 
 Para la parte de experimentación se implementó otro script de python que realiza una medición y sobre
-esa medición calcula la entropía para ambas fuentes. De esta forma se pueden comparar los dos análisis
+esa medición calcula la entropía para las tres fuentes. De esta forma se pueden comparar los análisis
 realizados sobre una misma muestra, cosa que no habríamos podido si ejecutábamos primero un script y luego
 el otro. El programa correspondiente es \texttt{sniffer.py} y se encuentra en el directorio \texttt{src}.
 
@@ -100,7 +101,7 @@ La mayor parte del código es idéntica a la de \texttt{e2.py} y \texttt{e3.py} 
 también se aplicaron algunas optimizaciones. Por ejemplo, ya no se almacenan los paquetes capturados por
 \texttt{sniff}, sino que se procesan a medida que se capturan. Para ello, se modificó la función
 \texttt{monitor\_callback} de forma que obtenga el tipo (tal como se hizo en \texttt{e2.py}) y, en caso
-de ser un paquete \texttt{ARP}, %TODO: ¿la ip fuente?¿la ip destino?
+de ser un paquete \texttt{ARP}, la IP origen y la IP destino
 (tal como se hizo en \texttt{e3.py}) de cada paquete a medida que son capturados. Es por esto que se volvió
 a la versión original de \texttt{sniff} pasándole como parámetro \texttt{prn=monitor\_callback}. Tras finalizar
 la escucha, se generan los diccionarios, se imprimen y se calculan las entropías. Además, se escribe a un archivo
@@ -117,22 +118,25 @@ se componen del prefijo \texttt{FILE\_PREFIX} pasado como parámetro obligatorio
 
 %TODO: hipótesis: ipv4 > ipv6, #ARP en función del tamaño de la red, el router maneja mucho más paquetes que el resto de los nodos, etc.
 
-\subsubsection{Experimento 1: Red hogareña, cableada, 10 mintos}
+\subsubsection{Experimento 1: Red hogareña}
+\paragraph{Medición cableada de 10 minutos}
 
 Este experimento consiste en ... %TODO
 
-\subsubsection{Experimento 1: Red hogareña, inalámbrica, 10 mintos}
+\paragraph{Medición inalámbrica de 10 minutos}
 
 Este experimento consiste en ... %TODO
 
-\subsubsection{Experimento 2: Red pública, inalámbrica, 10 minutos}
+\subsubsection{Experimento 2: Red pública}
+\paragraph{Medición inalámbrica de 10 minutos}
 
 Este experimento consiste en ... %TODO
 
-\subsubsection{Experimento 2: Red pública, inalámbrica, 60 minutos}
+\paragraph{Medición inalámbrica de 60 minutos}
 
 Este experimento consistie en ...%TODO
 
-\subsubsection{Experimento 3: Red laboral, inalámbrica, 60 minutos}
+\subsubsection{Experimento 3: Red laboral}
+\paragraph{Medición inalámbrica de 60 minutos}
 
 Este experimento consistió en dos mediciones de una hora dos días distintos sobre una misma red.
