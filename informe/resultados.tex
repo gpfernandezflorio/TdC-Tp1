@@ -36,6 +36,18 @@ está ejecutando el experimento está conectada al router principal (con direcci
 por otros hosts no deberían llegar hasta este equipo. En cuanto a los destinatarios de los paquetes, vemos que el router no representa un símbolo distinguido
 como sí lo hacía en la fuente de basada en emisores.
 
+\begin{center}
+\begin{tabular}{|c||c|}
+\hline
+Entropía de los protocolos & 0.0157726691884  \\
+\hline
+Entropía de las IPs origen de ARP & 1.00639070966  \\
+\hline
+Entropía de las IPs destino de ARP & 1.80467296546 \\
+\hline
+\end{tabular}
+\end{center}
+
 \subsubsection{Medición inalámbrica}
 
 \begin{center}
@@ -81,6 +93,19 @@ router principal de la red, mientras que el nodo al que más paquetes van dirigi
 de las direcciones mantiene una baja frecuencia de envío y recepción de paquetes. Otro punto a notar es la aparición de la dirección
 \textbf{0.0.0.0} como emisor de 3 paquetes.
 
+\begin{center}
+\begin{tabular}{|c||c|}
+\hline
+Entropía de los protocolos & 0.5871665762  \\
+\hline
+Entropía de las IPs origen de ARP & 0.420338347182  \\
+\hline
+Entropía de las IPs destino de ARP & 1.11098133367 \\
+\hline
+\end{tabular}
+\end{center}
+
+
 \subsection{Experimento 2: Red pública}
 \subsubsection{Medición 10 minutos}
 
@@ -108,6 +133,19 @@ distinguido de la fuente.
 Este gráfico muestra algo más parecido a lo esperado en cuanto a la cantidad de nodos identificados. Lo que es incierto es la razón por la cual
 los paquetes son dirigidos a tantos nodos distintos pero emitidos por un grupo reducido.
 
+\begin{center}
+\begin{tabular}{|c||c|}
+\hline
+Entropía de los protocolos & 0.227743354201  \\
+\hline
+Entropía de las IPs origen de ARP & 0.180229910313  \\
+\hline
+Entropía de las IPs destino de ARP & 4.77276412705 \\
+\hline
+\end{tabular}
+\end{center}
+
+
 \subsubsection{Medición 60 minutos}
 
 \begin{center}
@@ -123,6 +161,20 @@ los paquetes son dirigidos a tantos nodos distintos pero emitidos por un grupo r
 \end{center}
 
 Para poder observar este gráfico mejor, lo agregamos en el Apéndice, en la sección \ref{exp2_60_big}.
+
+
+\begin{center}
+\begin{tabular}{|c||c|}
+\hline
+Entropía de los protocolos & 0.193502700102 \\
+\hline
+Entropía de las IPs origen de ARP & 0.1659063338  \\
+\hline
+Entropía de las IPs destino de ARP & 6.07060528117 \\
+\hline
+\end{tabular}
+\end{center}
+
 
 \subsection{Experimento 3: Red laboral}
 \subsubsection{Primera medición 60 minutos}
@@ -154,6 +206,23 @@ Para poder observar este gráfico mejor, lo agregamos en el Apéndice, en la sec
 \begin{center}
 \includegraphics[width=16cm]{../mediciones/job2/dst.png}
 \end{center}
+
+\begin{center}
+\begin{tabular}{|c||c|c|}
+Entropía & Medición 1 & Medición 2
+\hline
+Entropía de los protocolos & 0.792831613911 & 0.578907674515\\
+\hline
+Entropía de las IPs origen de ARP & 1.53247970384 & 1.23402710535 \\
+\hline
+Entropía de las IPs destino de ARP & 5.53038672313 & 4.7457277713 \\
+\hline
+\end{tabular}
+\end{center}
+
+
+
+
 
 \subsection{Entropía}
 
