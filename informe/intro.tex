@@ -1,1 +1,23 @@
-Esta somera introducción ... %TODO
+%Este trabajo consistió en realizar una lectura de paquetes de diversas redes realizada por una herramienta implementada en $python$ utilizando \texttt{scapy} para acceder a la placa de red. Luego de realizar la herramienta analizamos los paquetes 
+Supongamos que tenemos una fuente que emite una secuencia de símbolos pertenecientes a un alfabeto finito y determinado $S = \{s_1, s_2, .., s_q\}$. Los símbolos emitidos sucesivamente se eligen de acuerdo con una ley fija de probabilidad. Si los símbolos emitidos son estadísticamente independientes, se dice que la fuente $S$ es \textbf{de memoria nula}.
+
+Si consideramos la \textbf{información} suministrada por una fuente de memoria nula, la cantidad \emph{media} de información por símbolo está dado por la fórmula:
+\begin{center}
+    $\displaystyle \sum_S P(s_i) I(s_i)$ bits
+\end{center}
+
+\caja{0.8}{
+    Definimos entonces a la \textbf{entropía} como la \textbf{cantidad media de información por símbolo de una fuente de memoria nula}. La notamos $H(S)$
+    \begin{center}
+        $\displaystyle H(S) = \sum_S P(s_i)\ log(\frac{1}{P(s_i)})$ bits
+    \end{center}
+}
+
+Luego se puede ver a la fuente S que tiene como símbolos a los protocolos utilizados en la red en un intervalo de tiempo dado.
+Por otro lado podemos pensar a un símbolo como distinguido cuando sobresale del resto en términos de la información que provee.
+En el siguiente trabajo analizaremos distintas redes basandonos en la entropía como métrica, 
+para poder diferenciar a los protocolos y a los nodos distinguidos de las respectivas redes.
+
+Cabe destacar que el análisis para distinguir los nodos en las redes lo haremos solamente sobre el protocolo $ARP$.
+$ARP$ (del inglés $Adress Resolution Protocol$)es un protocolo de comunicaciones de la capa de enlace de datos, responsable de encontrar la dirección de hardware (Ethernet MAC) que corresponde a una determinada dirección IP. Para ello se envía un paquete (ARP request) a la dirección de difusión de la red (broadcast, MAC = FF FF FF FF FF FF) que contiene la dirección IP por la que se pregunta, y se espera a que esa máquina (u otra) responda (ARP reply) con la dirección Ethernet que le corresponde. Cada máquina mantiene una caché con las direcciones traducidas para reducir el retardo y la carga. ARP permite a la dirección de Internet ser independiente de la dirección Ethernet, pero esto solo funciona si todas las máquinas lo soportan.
+ \footnote{ARP está documentado en el RFC 826 \url{https://tools.ietf.org/html/rfc826}}
