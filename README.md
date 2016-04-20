@@ -2,7 +2,6 @@
 Tp1 de redes 2016 1c
 
 ## TODO:
-* Explicar como se realizaro el experimento Red laboral
 * Analizar resultados Red laboral
 * Analizar entropias todas juntas al final
 * Conclusiones
