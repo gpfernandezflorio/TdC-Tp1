@@ -1,8 +1,5 @@
 En la carpeta \texttt{mediciones} se encuentran los archivos de salida correspondientes a cada
-experimento. Por cada uno, se adjunta un archivo \texttt{README.txt} con la información conocida
-sobre la red en cuestión y otro arhivo \texttt{exceptions.txt} que describe los paquetes sin tipo
-capturados. Los nombres de los experimentos denotan el tipo de red, el tipo de conexión y la
-duración del experimento en minutos.
+experimento, junto con todos los gráficos mostrados en esta sección y otros archivos de referencia.
 
 % \subsection{Experimento 1: Red hogareña, cableada, 10 mintos}
 \subsection{Experimento 1: Red hogareña}
@@ -32,18 +29,6 @@ Vemos que para este experimento no tiene sentido considerar la IP del emisor de 
 está ejecutando el experimento está conectada al router principal (con dirección \textbf{192.168.1.1}) a través de un cable ethernet, por lo que los paquetes emitidos
 por otros hosts no deberían llegar hasta este equipo. En cuanto a los destinatarios de los paquetes, vemos que el router no representa un símbolo distinguido
 como sí lo hacía en la fuente de basada en emisores.
-
-\begin{center}
-\begin{tabular}{|c||c|}
-\hline
-Entropía de los protocolos & 0.0157726691884  \\
-\hline
-Entropía de las IPs origen de ARP & 1.00639070966  \\
-\hline
-Entropía de las IPs destino de ARP & 1.80467296546 \\
-\hline
-\end{tabular}
-\end{center}
 
 \subsubsection{Medición inalámbrica}
 
@@ -89,21 +74,24 @@ router principal de la red, mientras que el nodo al que más paquetes van dirigi
 de las direcciones mantiene una baja frecuencia de envío y recepción de paquetes. Otro punto a notar es la aparición de la dirección
 \textbf{0.0.0.0} como emisor de 3 paquetes.
 
+A continuación se muestra la tabal de entropías de cada medición.
+
 \begin{center}
-\begin{tabular}{|c||c|}
+\begin{tabular}{|c||c|c|}
 \hline
-Entropía de los protocolos & 0.5871665762  \\
+ & Cableada & Inalámbrica \\
 \hline
-Entropía de las IPs origen de ARP & 0.420338347182  \\
 \hline
-Entropía de las IPs destino de ARP & 1.11098133367 \\
+Entropía de los protocolos & 0.0157726691884 & 0.5871665762 \\
+\hline
+Entropía de las IPs origen de ARP & 1.00639070966 & 0.420338347182 \\
+\hline
+Entropía de las IPs destino de ARP & 1.80467296546 & 1.11098133367 \\
 \hline
 \end{tabular}
 \end{center}
 
-
 \subsection{Experimento 2: Red pública}
-
 
 \begin{minipage}{8cm}
   \centering
@@ -149,9 +137,13 @@ distinguido de la fuente.
 60 minutos
 \end{center}
 
-Estos gráficos muestra algo más parecido a lo esperado en cuanto a la cantidad de nodos identificados. Lo que es incierto es la razón por la cual
-los paquetes son dirigidos a tantos nodos distintos pero emitidos por un grupo reducido.
-Para poder observar el segundo gráfico mejor, lo agregamos en el Apéndice, en la sección \ref{exp2_60_big}.
+Para poder observar el segundo gráfico mejor, lo agregamos en el Apéndice, en la sección \ref{ampliaciones}.
+Estos gráficos muestran algo más parecido a lo esperado en cuanto a la cantidad de nodos identificados.
+Lo que es incierto es la razón por la cual
+los paquetes son dirigidos a tantos nodos distintos pero emitidos por un grupo reducido. Además, ya no es trivial identificar
+símbolos distinguidos en esta red, ya que son varios lo que alcanzan una elevada cantidad de paquetes destinados a ellos.
+Eso nos hace pensar que la entropía respecto a las IP destino va ser mucho mayor a la entropía
+respecto a las IP emisor. Esto último lo vemos confirmado en la siguiente tabla.
 
 \begin{center}
 \begin{tabular}{|c||c|c|}
@@ -170,7 +162,6 @@ Entropía de las IPs destino de ARP & 4.77276412705 & 6.07060528117 \\
 
 \subsection{Experimento 3: Red laboral}
 
-
 \begin{minipage}{8cm}
   \centering
   \includegraphics[width=8cm]{../mediciones/job1/type.png}
@@ -182,6 +173,13 @@ Entropía de las IPs destino de ARP & 4.77276412705 & 6.07060528117 \\
   Segunda medición
 \end{minipage}
 
+Si bien en esta red también predominan los paquetes de tipo IPv4, notamos que la proporción de mensajes agrupados en
+la categoría $other$ es bastante mayor en comparación a los experimentos anteriores. Al analizar la información de
+estos paquetes (el resultado de aplicarle la función \texttt{show} al paquete) notamos la etiqueta \textit{Spanning
+Tree Protocol} en casi todos ellos (las salidas de los experimentos pueden encontrarse en las carpetas
+\texttt{mediciones/job1} y \texttt{mediciones/job2} bajo el nombre de \texttt{out.txt}). Esto tiene sentido ya que
+la empresa cuenta con varios routers conectados entre sí y en el lapso de una hora es esperable que se ejecute el
+protocolo una cantidad considerable de veces.
 
 \begin{center}
 \includegraphics[width=16cm]{../mediciones/job1/src.png}
@@ -193,6 +191,7 @@ Primera medición
 Segunda medición
 \end{center}
 
+Estos gráficos pueden observarse mejor en la sección \ref{ampliaciones}.
 A diferencia de lo que ocurría con la red pública del segundo experimento, en la que aparecían muchos nodos receptores pero pocos emisores,
 en esta red podemos identificar una enorme cantidad de nodos a partir de las direcciones fuente de los paquetes ARP.
 Nuevamente, identificamos un nodo (en este caso, con la dirección \textbf{10.0.0.1}) que envía casi la totalidad de los paquetes.
@@ -208,6 +207,10 @@ Primera medición
 \includegraphics[width=16cm]{../mediciones/job2/dst.png}
 Segunda medición
 \end{center}
+
+Nuevamente observamos una gran cantidad de nodos en la red. Sin embargo la distribución es más uniforme que en los gráficos anteriores.
+En este caso, vemos varias direcciones que resaltan del resto en cuanto a cantidad de paquetes recibidos. Como en el experimento anterior,
+la entropía respecto a las IP destino es mucho mayor, tal como puede observarse en la siguiente tabla.
 
 \begin{center}
 \begin{tabular}{|c||c|c|}
